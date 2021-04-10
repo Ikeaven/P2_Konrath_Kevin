@@ -1,4 +1,6 @@
 env/
+
 .vscode/
+__pycache__/
 
 book_info.csv
