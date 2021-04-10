@@ -10,7 +10,7 @@ from bs4 import BeautifulSoup
 # product_page_url = "http://books.toscrape.com/catalogue/a-light-in-the-attic_1000/index.html"
 
 parser = argparse.ArgumentParser()
-parser.add_argument("url", help="get book info for this product_page_")
+parser.add_argument("url", help="book url")
 args = parser.parse_args()
 
 
@@ -31,7 +31,7 @@ def convert_ratingString_in_number(str):
         if str == el:
             return i+1 
    
-def main(url, nb_book="1"):
+def main(url, nb_book=1):
     """Create a .csv containing the info of the book."""
     product_page_url = url
     response = requests.get(product_page_url)
