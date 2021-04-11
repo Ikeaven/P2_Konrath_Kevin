@@ -17,18 +17,14 @@ def main(url):
 
     if len(categories_name) == len(categories_url):
         for i in range(len(categories_url)):
-            print("Scrapping en cours de la catégorie :" + categories_name[i])
+            print("Scrapping en cours de la catégorie : " + categories_name[i])
             print("______________________________________________")
             getCategoryInfo.main(categories_url[i], categories_name[i])
 
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument("url", help="Enter a valid website url, default is http://books.toscrape.com/index.html", default="http://books.toscrape.com/index.html")
-    args = parser.parse_args()
-
     try:
-        main(args.url)
+        main("http://books.toscrape.com/index.html")
     except :
         print("Error : add a valid website url as an argument")

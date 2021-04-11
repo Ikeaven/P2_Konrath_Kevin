@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 
-
 import requests
 import csv
 import argparse
@@ -9,9 +8,6 @@ import os
 from bs4 import BeautifulSoup
 
 # product_page_url = "http://books.toscrape.com/catalogue/a-light-in-the-attic_1000/index.html"
-
-
-
 
 def extract_number(str):
     """Return all numeric characters of a string as an int""" 
@@ -30,10 +26,10 @@ def convert_ratingString_in_number(str):
             return i+1 
    
 def main(url_list, category_name="category"):
-    """Create a .csv containing the info of the book."""
-    
-        
+    """Create a .csv in './exports/' folder
+        The csv containing the informations of the book.
 
+    """
     
     if os.path.isdir("./exports") == False:
         os.mkdir("./exports")
@@ -59,10 +55,13 @@ def main(url_list, category_name="category"):
                 price_excluding_tax = tr[2].find('td').text
                 number_available = extract_number(tr[5].find('td').text)
                 title = soup.find('h1').text.replace(',', '')
-                product_description = soup.select('article > p')[0].text.replace(',', '')
+                if soup.select("#product_description") == []:
+                    product_description = ""
+                else :
+                    product_description = soup.select('article > p')[0].text.replace(',', '')
                 category = soup.find("ul").findAll("li")[2].text.strip()
                 review_rating = convert_ratingString_in_number(soup.findAll("p")[2]["class"][1])
-                image_url = soup.find('img')["src"]
+                image_url = soup.find('img')["src"].replace('../../', 'http://books.toscrape.com/')
 
             #inscription dans le csv 
             spamwriter.writerow([product_page_url, upc, title, price_including_tax, price_excluding_tax, number_available, product_description, category, 
@@ -72,11 +71,12 @@ def main(url_list, category_name="category"):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("url", help="book url")
+    parser.add_argument("category_name", help="name of a category, it's used for the output file's name")
     args = parser.parse_args()
 
     try:
         arrayUrl = [args.url]
-        main(arrayUrl)
+        main(arrayUrl, args.category_name)
     except :
         print("Error : add a valid book_page_url as an argument")
 
