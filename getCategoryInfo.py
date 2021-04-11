@@ -1,4 +1,4 @@
-#TODO : Shebang 
+#!/usr/bin/env python
 
 import argparse
 import requests

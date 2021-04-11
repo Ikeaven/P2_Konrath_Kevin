@@ -1,9 +1,10 @@
-#TODO : shebang 
+#!/usr/bin/env python
 
 
 import requests
 import csv
 import argparse
+import os 
 
 from bs4 import BeautifulSoup
 
@@ -33,7 +34,9 @@ def main(url_list, category_name="category"):
     
         
 
-# TODO : CHECK si présence et création d'un dossier exports
+    
+    if os.path.isdir("./exports") == False:
+        os.mkdir("./exports")
 
     with open( './exports/'+category_name+'.csv', 'w', newline='') as csvfile:
         spamwriter = csv.writer(csvfile, delimiter=',',

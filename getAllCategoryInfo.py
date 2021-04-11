@@ -1,4 +1,4 @@
-#TODO : Shebang !! 
+#!/usr/bin/env python
 
 import requests
 import getCategoryInfo
@@ -17,8 +17,8 @@ categories_url = ["http://books.toscrape.com/"+el["href"] for el in soup.select(
 if len(categories_name) == len(categories_url):
     for i in range(len(categories_url)):
         
-        print(categories_name[i])
-        print(categories_url[i])
+
+        print("Scrapping en cours de la catégorie :" + categories_name[i])
         print("______________________________________________")
         getCategoryInfo.main(categories_url[i], categories_name[i])
 
