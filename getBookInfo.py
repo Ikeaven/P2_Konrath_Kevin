@@ -1,5 +1,6 @@
 #TODO : shebang 
 
+
 import requests
 import csv
 import argparse
@@ -27,14 +28,14 @@ def convert_ratingString_in_number(str):
         if str == el:
             return i+1 
    
-def main(url_list):
+def main(url_list, category_name="category"):
     """Create a .csv containing the info of the book."""
     
         
 
+# TODO : CHECK si présence et création d'un dossier exports
 
-
-    with open('book_info.csv', 'w', newline='') as csvfile:
+    with open( './exports/'+category_name+'.csv', 'w', newline='') as csvfile:
         spamwriter = csv.writer(csvfile, delimiter=',',
                                 quotechar='|', quoting=csv.QUOTE_MINIMAL)
 
