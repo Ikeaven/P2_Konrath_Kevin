@@ -69,7 +69,11 @@ def extract_book_data(product_page_url):
         review_rating (int) : rating  
         image_url (str) :  
     """
-    # TODO : user agent 
+
+    # get request with user agent 
+    # headers = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 11_2_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36"}
+    # response = requests.get(product_page_url, headers=headers)
+    # ---------------
     response = requests.get(product_page_url)
             
     #Returns True if status_code is less than 400, False if not.
@@ -77,7 +81,7 @@ def extract_book_data(product_page_url):
         soup = BeautifulSoup(response.content, "lxml")
         
         # Récupration du tableau en entier puis extraction : 1 seul analyse du DOM
-        tr = soup.findAll("tr")
+        tr = soup.find_all("tr")
         upc = tr[0].find('td').text
         price_including_tax = tr[3].find('td').text
         price_excluding_tax = tr[2].find('td').text
