@@ -3,13 +3,21 @@
 import argparse
 import requests
 import getBookInfo
+import re
+
 from bs4 import BeautifulSoup
 
+
+def extract_category_name(url):
+    category_name = url.replace('http://books.toscrape.com/catalogue/category/books/', '').replace('/index.html', '').replace('_', '')
+    category_name = category_name.replace('https://books.toscrape.com/catalogue/category/books/', '')
+    category_name = re.sub(r'[0-9]+', '', category_name)
+    return category_name
 
 def getBooksUrlOnAPage(url):
     """Return an array of all books_url for a category."""
     response = requests.get(url)
-    soup = BeautifulSoup(response.content, "html.parser")
+    soup = BeautifulSoup(response.content, "lxml")
     array_of_a = soup.select("h3 > a")
     array_books_url = []
     for el in array_of_a:
@@ -38,7 +46,7 @@ def main(category_url, category_name="category"):
     """
     response = requests.get(category_url)
     if response.ok:
-        soup = BeautifulSoup(response.content, "html.parser")
+        soup = BeautifulSoup(response.content, "lxml")
 
         #get the number of book on this category 
         book_number = int(soup.find("form", {"class":"form-horizontal"}).find("strong").text)
@@ -60,6 +68,7 @@ def main(category_url, category_name="category"):
 
 
     if len(array_books_url) == book_number:
+        print("Scrapping en cours de la catégorie : " + category_name)
         getBookInfo.main(array_books_url, category_name)
 
 
@@ -70,7 +79,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     try:
-        main(args.url)
+        main(args.url, extract_category_name(args.url))
     except :
         print("Error : add a valid categorie_page_url as an argument")
 
