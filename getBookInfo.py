@@ -24,7 +24,24 @@ def convert_ratingString_in_number(str):
     for i, el in enumerate(num_table):
         if str == el:
             return i+1 
+
+
+def download_image(image_url, category_name):
+    response = requests.get(image_url)
+    # http://books.toscrape.com/media/cache/
+    image_name = image_url.replace('http://books.toscrape.com/media/cache/', '').replace('/','_')
+
+    #check if .exports/images folder exists
+    if os.path.isdir("./exports/images")==False:
+        os.mkdir("./exports/images")
+
+    #check if .exports/images/[category_name] folder exists
+    if os.path.isdir("./exports/images/"+category_name) == False:
+        os.mkdir("./exports/images/"+category_name)
+
+    open("./exports/images/"+category_name+"/"+ image_name, 'wb').write(response.content)
    
+
 def main(url_list, category_name="category"):
     """Create a .csv in './exports/' folder
         The csv containing the informations of the book.
@@ -62,6 +79,7 @@ def main(url_list, category_name="category"):
                 category = soup.find("ul").findAll("li")[2].text.strip()
                 review_rating = convert_ratingString_in_number(soup.findAll("p")[2]["class"][1])
                 image_url = soup.find('img')["src"].replace('../../', 'http://books.toscrape.com/')
+                download_image(image_url, category_name)
 
             #inscription dans le csv 
             spamwriter.writerow([product_page_url, upc, title, price_including_tax, price_excluding_tax, number_available, product_description, category, 
