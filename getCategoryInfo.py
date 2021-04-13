@@ -5,7 +5,7 @@ import requests
 import getBookInfo
 import re
 
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup, SoupStrainer
 
 
 def extract_category_name(url):
@@ -17,7 +17,8 @@ def extract_category_name(url):
 def getBooksUrlOnAPage(url):
     """Return an array of all books_url for a category."""
     response = requests.get(url)
-    soup = BeautifulSoup(response.content, "lxml")
+    only_section = SoupStrainer('section')
+    soup = BeautifulSoup(response.content, "lxml", parse_only=only_section)
     array_of_a = soup.select("h3 > a")
     array_books_url = []
     for el in array_of_a:

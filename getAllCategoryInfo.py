@@ -3,13 +3,14 @@
 import requests
 import argparse
 import getCategoryInfo
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup, SoupStrainer
 
 
 # url = "http://books.toscrape.com/index.html"
 def main(url):
     response = requests.get(url)
-    soup = BeautifulSoup(response.content, "lxml")
+    only_aside = SoupStrainer("aside")
+    soup = BeautifulSoup(response.content, "lxml", parse_only=only_aside)
 
     categories_name = [el.text.strip() for el in soup.select("ul > li > ul > li > a")]
     categories_url = ["http://books.toscrape.com/"+el["href"] for el in soup.select("ul > li > ul > li > a")]
