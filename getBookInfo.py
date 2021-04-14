@@ -18,7 +18,12 @@ from progress.bar import Bar
 
 
 def extract_number(str):
-    """Return all numeric characters of a string as an int""" 
+    """Return all numeric characters of a string as an int
+    params :
+        str (str) : string that contains numeric characters
+    return :
+        (int) : join of all integers in str
+    """ 
     num_list = []
     for el in str:
         if ord(el)>= 48 and ord(el)<=57:
@@ -27,7 +32,11 @@ def extract_number(str):
 
 
 def convert_ratingString_in_number(str):
-    """Return the conversion in integer or an error message"""
+    """Return the conversion in integer or an error message
+    params :
+        str (str) : string who represebts a number between One to Five
+    return :
+        (int) : corresponding to the string params"""
     num_table = ['One', 'Two', 'Three', 'Four', 'Five']
     if str in num_table: 
         for i, el in enumerate(num_table):
@@ -39,9 +48,11 @@ def convert_ratingString_in_number(str):
 
 def download_image(image_url, category_name):
     """Download a picture and create folders to store the picure in the write folder category
-        params : 
-            image_url : string - picture's url 
-            category_name : string - used to create folder for this category
+    params : 
+        image_url : string - picture's url 
+        category_name : string - used to create folder for this category
+    output : 
+        picture file in category's folder
     """
     response = requests.get(image_url)
 
@@ -63,7 +74,6 @@ def extract_book_data(product_page_url):
     """This function extract data from book's url.
     Args:
         param1 (str): book's url.
-
     Returns:
         upc (str) : upc code. 
         title (str) : book's title
@@ -73,9 +83,8 @@ def extract_book_data(product_page_url):
         product_description (str) : book's description 
         category (str) : book's category
         review_rating (int) : rating  
-        image_url (str) :  
+        image_url (str) :  string, image's url
     """
-
     # get request with user agent 
     # headers = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 11_2_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36"}
     # response = requests.get(product_page_url, headers=headers)
@@ -120,8 +129,17 @@ def extract_book_data(product_page_url):
 
 
 def main(url_list, category_name="category"):
-    """Create a .csv in './exports/' folder
-        The csv containing book's data.
+    """Collect book's data than create a .csv in './exports/[Subfolder]/', 
+    Then download book's picture, and store it in ./exports/images/[Subfolder]/'.
+    Subfolder's name follow category_name. 
+    
+    params : 
+        url_list (array) : list of book's url 
+        category_name : category associated to the list
+    outputs : 
+        .csv files in ./exports/[Subfolder]/ 
+        .jpg files in ./exports/images/[Subfolder]/
+
     """
     # create exports folder if necessary 
     if os.path.isdir("./exports") == False:
@@ -160,7 +178,8 @@ def main(url_list, category_name="category"):
                 bar.next()
             print("")
             print("______________________________________________")
-  
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("url", help="book url")
