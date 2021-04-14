@@ -1,4 +1,11 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+"""
+    This module extraxt all catégory, create an array with, and
+    passes it to getCategoryInfo module. 
+"""
+
 
 import requests
 import argparse

@@ -1,4 +1,11 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+""" 
+    This module collects Book's informations from books_toscrap website.
+    All data, once collected, are writen in a .csv file, in "exports" folder.  
+"""
+
 
 import requests
 import csv
@@ -9,8 +16,6 @@ import sys
 from bs4 import BeautifulSoup
 from progress.bar import Bar
 
-
-# product_page_url = "http://books.toscrape.com/catalogue/a-light-in-the-attic_1000/index.html"
 
 def extract_number(str):
     """Return all numeric characters of a string as an int""" 
@@ -52,6 +57,7 @@ def download_image(image_url, category_name):
         os.mkdir("./exports/images/"+category_name)
 
     open("./exports/images/"+category_name+"/"+ image_name, 'wb').write(response.content)
+
 
 def extract_book_data(product_page_url):
     """This function extract data from book's url.
@@ -103,25 +109,23 @@ def extract_book_data(product_page_url):
             product_description = soup.select_one('article > p').string
 
         category = soup.find("ul").select_one('li:nth-child(3)>a').string.strip()
-
         review_rating = convert_ratingString_in_number(soup.select_one('.star-rating').attrs['class'][1])
-
         image_url = soup.select_one('.carousel-inner>div>img')["src"].replace('../../', 'http://books.toscrape.com/')
 
         return (upc, title, price_including_tax,
                 price_excluding_tax, number_available, product_description, 
                 category, review_rating, image_url)
-        
+    else:
+        response.raise_for_status()   
 
 
 def main(url_list, category_name="category"):
     """Create a .csv in './exports/' folder
-        The csv containing the informations of the book.
+        The csv containing book's data.
     """
     # create exports folder if necessary 
     if os.path.isdir("./exports") == False:
         os.mkdir("./exports")
-
 
     with open( './exports/'+category_name+'.csv', 'w', newline='') as csvfile:
         spamwriter = csv.writer(csvfile, dialect='excel')

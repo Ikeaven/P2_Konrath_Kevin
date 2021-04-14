@@ -1,4 +1,10 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+"""
+    This module collect number of pages on a specific categorie, and all books url. 
+    It creates an array with books url and passes it to getBookInfo module. 
+"""
 
 import argparse
 import requests
