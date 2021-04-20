@@ -12,10 +12,11 @@ import csv
 import argparse
 import os 
 import sys
+import re
 
 from bs4 import BeautifulSoup
 from progress.bar import Bar
-from Utility.decorators import timer
+# from utility.decorators import timer
 
 
 def extract_number(str):
@@ -71,7 +72,7 @@ def download_image(image_url, category_name):
     open("./exports/images/"+category_name+"/"+ image_name, 'wb').write(response.content)
 
 
-@timer
+# @timer
 def extract_book_data(product_page_url):
     """This function extract data from book's url.
     Args:
@@ -130,7 +131,7 @@ def extract_book_data(product_page_url):
         response.raise_for_status()   
 
 
-def main(url_list, category_name="category"):
+def main(url_list, category_name='No_category'):
     """Collect book's data than create a .csv in './exports/[Subfolder]/', 
     Then download book's picture, and store it in ./exports/images/[Subfolder]/'.
     Subfolder's name follow category_name. 
@@ -143,9 +144,14 @@ def main(url_list, category_name="category"):
         .jpg files in ./exports/images/[Subfolder]/
 
     """
+    # For only one book, replace category_name by book's name 
+    # if category_name == 'No_category' :
+    #     category_name = url_list[0].replace('https://books.toscrape.com/catalogue/', '').replace('/index.html', '').replace('_','')
+    #     category_name = re.sub(r'[0-9]+', '', category_name)
+
     # create exports folder if necessary 
     if os.path.isdir("./exports") == False:
-        os.mkdir("./exports")
+        os.mkdir("./exports")   
 
     with open( './exports/'+category_name+'.csv', 'w', newline='') as csvfile:
         spamwriter = csv.writer(csvfile, dialect='excel')

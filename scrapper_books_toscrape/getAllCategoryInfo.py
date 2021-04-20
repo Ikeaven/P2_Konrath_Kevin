@@ -8,8 +8,8 @@
 
 
 import requests
-import argparse
-import getCategoryInfo
+# import argparse
+from . import getCategoryInfo
 from bs4 import BeautifulSoup, SoupStrainer
 
 
@@ -30,7 +30,7 @@ def main(url):
     #little check before jump to getCategoryInfo.py module
     if len(categories_name) == len(categories_url):
         for i in range(len(categories_url)):
-            getCategoryInfo.main(categories_url[i], categories_name[i])
+            getCategoryInfo.main(categories_url[i])
     else : 
         raise Exception ("Number of categories url not corresponding to numbre of categories")
 
