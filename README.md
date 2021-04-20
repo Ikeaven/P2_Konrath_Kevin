@@ -4,18 +4,23 @@ Projet n°2 Openclassrooms les bases de Python - BS4
 
 ## initialisation du projet : 
 
-Dans un terminal ou invite de commande executer les commande suivantes : 
-Naviguer vers le repertoire souhaiter, à l'aide de cd / ls 
+Dans un terminal ou invite de commande executez les commandes suivantes : 
+Naviguez vers le repertoire souhaité, à l'aide de cd / ls 
+
+
 ### 1. Récupérer le projet
 $ git clone https://github.com/Ikeaven/P2_Konrath_Kevin.git
+
 
 ### 2. activer un environnement vituel 
 $ cd P2_KONRATH_KEVIN
 $ python3 -m venv env 
 $ source env/bin/activate 
 
+
 ### 3. installer les dépencances projets 
 $ pip install -r requirements.txt
+
 
 ### 4. executer le programme :
 $ python3 main_scrapper.py [url]
