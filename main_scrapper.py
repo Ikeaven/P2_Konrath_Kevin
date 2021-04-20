@@ -18,11 +18,21 @@ from scrapper_books_toscrape import getAllCategoryInfo, getCategoryInfo, getBook
 def main(url):
     update_url = url.replace('https://books.toscrape.com/', '')
     if update_url == '':
-        getAllCategoryInfo.main(url)
+        try:
+            getAllCategoryInfo.main(url)
+        except:
+            print("ERROR : URL Not Found")
+            
     elif "category" in update_url:
-        getCategoryInfo.main(url)
+        try:
+            getCategoryInfo.main(url)
+        except:
+            print("ERROR : URL Not Found")
     else:
-        getBookInfo.main([url])
+        try :
+            getBookInfo.main([url])
+        except :
+            print("ERROR : URL Not Found")
 
 
 if __name__ == "__main__":
