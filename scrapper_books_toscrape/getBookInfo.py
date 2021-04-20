@@ -76,7 +76,7 @@ def download_image(image_url, category_name):
 def extract_book_data(product_page_url):
     """This function extract data from book's url.
     Args:
-        param1 (str): book's url.
+        product_page_url (str): book's url.
     Returns:
         upc (str) : upc code. 
         title (str) : book's title

@@ -1,7 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-""""""
+"""This program is the main entry to scrape https://books.toscrape.com/
+    See README for more details
+
+    This program while output .csv file and .jpg files in './exports/' folder"""
 
 import argparse
 from scrapper_books_toscrape import getAllCategoryInfo, getCategoryInfo, getBookInfo
@@ -16,6 +19,10 @@ from scrapper_books_toscrape import getAllCategoryInfo, getCategoryInfo, getBook
 # https://books.toscrape.com/catalogue/its-only-the-himalayas_981/index.html
 
 def main(url):
+    """This function analyze the url, and send it to the right module
+    Args:
+        url (str): url of the website or a category or a book
+    """
     update_url = url.replace('https://books.toscrape.com/', '')
     if update_url == '':
         try:
