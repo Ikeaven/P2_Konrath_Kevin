@@ -14,6 +14,9 @@ import re
 from bs4 import BeautifulSoup, SoupStrainer
 
 
+
+
+
 def extract_category_name(url):
     """This function extract category name from an URL
     params:

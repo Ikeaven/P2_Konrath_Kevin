@@ -15,6 +15,7 @@ import sys
 
 from bs4 import BeautifulSoup
 from progress.bar import Bar
+from Utility.decorators import timer
 
 
 def extract_number(str):
@@ -47,7 +48,7 @@ def convert_ratingString_in_number(str):
 
 
 def download_image(image_url, category_name):
-    """Download a picture and create folders to store the picure in the write folder category
+    """Download a picture and create folders to store the picure in the right category folder
     params : 
         image_url : string - picture's url 
         category_name : string - used to create folder for this category
@@ -70,6 +71,7 @@ def download_image(image_url, category_name):
     open("./exports/images/"+category_name+"/"+ image_name, 'wb').write(response.content)
 
 
+@timer
 def extract_book_data(product_page_url):
     """This function extract data from book's url.
     Args:
