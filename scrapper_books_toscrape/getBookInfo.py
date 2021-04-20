@@ -145,9 +145,9 @@ def main(url_list, category_name='No_category'):
 
     """
     # For only one book, replace category_name by book's name 
-    # if category_name == 'No_category' :
-    #     category_name = url_list[0].replace('https://books.toscrape.com/catalogue/', '').replace('/index.html', '').replace('_','')
-    #     category_name = re.sub(r'[0-9]+', '', category_name)
+    if category_name == 'No_category' :
+        category_name = url_list[0].replace('https://books.toscrape.com/catalogue/', '').replace('/index.html', '').replace('_','')
+        category_name = re.sub(r'[0-9]+', '', category_name)
 
     # create exports folder if necessary 
     if os.path.isdir("./exports") == False:
