@@ -118,7 +118,7 @@ def extract_book_data(product_page_url):
         if soup.select("#product_description") == []:
             product_description = ""
         else :
-            product_description = soup.select_one('article > p').string
+            product_description = soup.select_one('article > p').string.replace('&#8232;','')
 
         category = soup.find("ul").select_one('li:nth-child(3)>a').string.strip()
         review_rating = convert_ratingString_in_number(soup.select_one('.star-rating').attrs['class'][1])
