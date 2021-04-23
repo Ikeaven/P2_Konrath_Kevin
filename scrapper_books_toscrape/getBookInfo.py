@@ -154,7 +154,7 @@ def main(url_list, category_name='No_category'):
     if os.path.isdir("./exports") == False:
         os.mkdir("./exports")   
 
-    with open( './exports/'+category_name+'.csv', 'w', newline='', encoding='utf-8-sig') as csvfile:
+    with open( './exports/'+category_name+'.csv', 'w', newline='', encoding='utf-8') as csvfile:
         spamwriter = csv.writer(csvfile, dialect='excel')
 
         # write header row                    
