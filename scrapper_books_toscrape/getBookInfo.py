@@ -118,7 +118,8 @@ def extract_book_data(product_page_url):
         if soup.select("#product_description") == []:
             product_description = ""
         else :
-            product_description = soup.select_one('article > p').string.replace('&#8232;','')
+            # product_description = soup.select_one('article > p').string.replace(u"\u2028",'').replace('‽','!?').replace(u"\uFB01",'').replace(u"\uFB02",'').replace(u"\uFEFF",'').replace(u"\u2015",'_')
+            product_description = soup.select_one('article > p').string.replace(u"\u2028",'')
 
         category = soup.find("ul").select_one('li:nth-child(3)>a').string.strip()
         review_rating = convert_ratingString_in_number(soup.select_one('.star-rating').attrs['class'][1])
@@ -153,7 +154,7 @@ def main(url_list, category_name='No_category'):
     if os.path.isdir("./exports") == False:
         os.mkdir("./exports")   
 
-    with open( './exports/'+category_name+'.csv', 'w', newline='') as csvfile:
+    with open( './exports/'+category_name+'.csv', 'w', newline='', encoding='utf-8-sig') as csvfile:
         spamwriter = csv.writer(csvfile, dialect='excel')
 
         # write header row                    
